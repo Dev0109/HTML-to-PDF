@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+        <style>
+        table {  
+            font-family: arial, sans-serif;  
+            border-collapse: collapse;  
+            width: 100%;  
+        }  
+        
+        td {  
+            border: 1px solid #dddddd;  
+            text-align: left;  
+            padding: 8px;  
+        } 
+        th{
+            border: 1px solid #dddddd;  
+            text-align: left;  
+            padding: 8px;  
+            background-color: #111;  
+            color:white;
+        }
+        
+        tr:nth-child(odd) {  
+            background-color: #dddddd;  
+        }
+        </style>
+    </head>
+    <body>
+        <h1>How To Convert HTML To PDF Using JavaScript - Techsolutionstuff</h1>
+        <div class="content">
+            <div class="col" id="page-2-content">
+                <div style="border:0; padding:8px">
+                    <span style="width:30px; float:left">3</span>
+                    Compilation Report
+                </div>
+                <div style="border:0; padding:8px">
+                    <span style="width:30px; float:left">4</span>
+                    Trustee Declaration
+                </div>
+                <div style="border:0; padding:8px">
+                    <span style="width:30px; float:left">5</span>
+                    Income Statement
+                </div>
+                <div style="border:0; padding:8px">
+                    <span style="width:30px; float:left">6</span>
+                    Trust Income Distribution
+                </div>
+                <div style="border:0; padding:8px">
+                    <span style="width:30px; float:left">7</span>
+                    Balance Sheet
+                </div>
+                <div style="border:0; padding:8px">
+                    <span style="width:30px; float:left">8</span>
+                    Beneficiary Accounts
+                </div>
+                <div style="border:0; padding:8px">
+                    <span style="width:30px; float:left">9</span>
+                    Notes to the Financial Statements
+                </div>
+                <div style="border:0; padding:8px">
+                    <span style="width:30px; float:left">12</span>
+                    Depreciation Schedule
+                </div>
+            </div>
+        </div>
+            <input type="button" id="create_pdf" value="Generate PDF">
+        </form>
+    </body>
+    <script>
+        $(document).ready(function () {  
+            var form = $('.content'),  
+            cache_width = form.width(),  
+            a4 = [595.28, 841.89]; // for a4 size paper width and height  
+        
+            $('#create_pdf').on('click', function () {  
+                $('body').scrollTop(0);  
+                createPDF();  
+            });  
+        
+            function createPDF() {  
+                getCanvas().then(function (canvas) {  
+                    var  
+                     img = canvas.toDataURL("image/png"),  
+                     doc = new jsPDF({  
+                         unit: 'px',  
+                         format: 'a4'  
+                     });  
+                    doc.addImage(img, 'JPEG', 20, 20);  
+                    doc.save('Bhavdip-html-to-pdf.pdf');  
+                    form.width(cache_width);  
+                });  
+            }  
+        
+            function getCanvas() {  
+                form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');  
+                return html2canvas(form, {  
+                    imageTimeout: 2000,  
+                    removeContainer: true  
+                });  
+            }
+        });
+        </script>
+</html>
